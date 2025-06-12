@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alzheimer's Disease Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <i class="fas fa-brain"></i>
+            <span>Alzheimer's MRI Prediction</span>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="upload-section">
+            <div class="upload-box">
+                <h1>Upload MRI Scan</h1>
+                <p class="subtitle">Upload a brain MRI image to analyze for Alzheimer's disease</p>
+                <form method="POST" enctype="multipart/form-data" class="upload-form">
+                    <div class="file-input-wrapper">
+                        <input type="file" name="image" accept="image/*" required id="file-input">
+                        <label for="file-input" class="file-label">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Choose MRI Image</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="predict-btn">
+                        <i class="fas fa-search"></i>
+                        Analyze Image
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        {% if img_path %}
+        <div class="results-section">
+            <div class="image-preview">
+                <h3>Uploaded MRI Scan</h3>
+                <div class="image-container">
+                    <img src="{{ img_path }}" alt="Uploaded MRI Image" class="displayed-img">
+                </div>
+            </div>
+
+            {% if prediction %}
+            <div class="prediction-results">
+                <div class="result-card">
+                    <h2>Analysis Results</h2>
+                    <div class="result-content">
+                        <div class="prediction-box">
+                            <span class="prediction-label">Prediction</span>
+                            <span class="prediction-value">{{ prediction }}</span>
+                            <div class="confidence-meter">
+                                <div class="confidence-bar" style="width: {{ confidence * 100 }}%"></div>
+                                <span class="confidence-value">{{ (confidence * 100) | round(2) }}% Confidence</span>
+                            </div>
+                        </div>
+                        <div class="explanation-box">
+                            <h3>Explanation</h3>
+                            <p>{{ explanation }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recommendations">
+                    <div class="recommendation-card">
+                        <div class="card-header">
+                            <i class="fas fa-pills"></i>
+                            <h3>Recommended Medications</h3>
+                        </div>
+                        <ul class="med-list">
+                            {% for med in medications %}
+                            <li><i class="fas fa-check-circle"></i> {{ med }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="recommendation-card">
+                        <div class="card-header">
+                            <i class="fas fa-shield-alt"></i>
+                            <h3>Precautions</h3>
+                        </div>
+                        <ul class="precaution-list">
+                            {% for precaution in precautions %}
+                            <li><i class="fas fa-check-circle"></i> {{ precaution }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="recommendation-card">
+                        <div class="card-header">
+                            <i class="fas fa-heartbeat"></i>
+                            <h3>Preventions</h3>
+                        </div>
+                        <ul class="prevention-list">
+                            {% for prevention in preventions %}
+                            <li><i class="fas fa-check-circle"></i> {{ prevention }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+
+    <footer class="footer">
+        <p>Developed with <i class="fas fa-heart"></i> for better healthcare</p>
+        <p class="copyright">© 2024 Alzheimer's Prediction System. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Add animation classes when elements come into view
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.result-card, .recommendation-card').forEach(card => {
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
