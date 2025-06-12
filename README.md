@@ -1,5 +1,6 @@
 # Alzheimer-s---deep-learning
 DATA SET "uraninjo/augmented-alzheimer-mri-dataset"
+
 **The Proposed Model**
 The Proposed Model in this research is a Convolutional Neural Network (CNN) designed 
 specifically to detect early signs of Alzheimer’s disease from MRI scans. CNNs are ideal for image 
@@ -24,6 +25,10 @@ indicating whether the MRI scan belongs to a patient with Alzheimer’s disease 
 control. 
 The CNN model is trained using backpropagation and the Adam optimizer to minimize the loss 
 function, which is typically categorical cross-entropy for binary classification. 
+
+
+
+
 **DATASETS & TOOLS **
 1. Dataset: 
 • ADNI (Alzheimer's Disease Neuroimaging Initiative): This publicly available 
