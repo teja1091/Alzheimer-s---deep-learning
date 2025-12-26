@@ -42,4 +42,5 @@ training, and evaluation.
 • TensorFlow/Keras: Used for building, training, and evaluating the CNN model. 
 • Scikit-learn: Used for building and evaluating the Random Forest model. 
 • Gradio: Used for deploying the trained model as a real-time web application for 
-MRI image classification. 
+MRI image classification.
+
